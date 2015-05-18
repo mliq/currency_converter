@@ -8,6 +8,6 @@ myApp.controller('WelcomeController',["$scope", function($scope){
     };
 
     $scope.goodbyeMessage = function(){
-        $scope.message = "Goodbye, " + $scope.name + ":("
+        $scope.message = "Goodbye, " + $scope.name + " :("
     }
 }]);
