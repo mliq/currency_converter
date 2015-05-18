@@ -5,11 +5,12 @@
         <div class="container" ng-controller="CurrencyController">
             <div class="col-md-offset-2">
                 <div>
-                    <h1>{{heading}}{{message | currency : "€"}}</h1>
+                    <h1>{{heading}}{{message}}</h1>
                     <input ng-model="amt" type="number" placeholder="Enter Amount"/>
+                    <button ng-click="convert('USDEUR')">USD-EUR</button>
+                    <button ng-click="convert('EURUSD')">EUR-USD</button>
                 </div>
-                <button ng-click="convert('EURUSD')">USD-EUR</button>
-                <button ng-click="convert('USDEUR')">EUR-USD</button>
+                <input ng-model="from" type="text" placeholder="from" maxlength="3" size="6"> - <input ng-model="to" type="text" placeholder="target" maxlength="3" size="6"><button ng-click="convert('special')">Go</button>
             </div>
         </div>
     </body>
