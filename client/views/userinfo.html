@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+    <head></head>
+    <body>
+        <div class="container" ng-controller="WelcomeController">
+            <div class="col-md-offset-2">
+                <div>
+                    <h1>{{heading + message}}</h1>
+                    <input ng-model="name" type="text" placeholder="Enter your name here">
+                </div>
+                <button ng-click="updateMessage()">Update</button>
+            </div>
+        </div>
+    </body>
+</html>
