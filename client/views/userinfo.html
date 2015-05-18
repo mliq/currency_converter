@@ -2,14 +2,14 @@
 <html>
     <head></head>
     <body>
-        <div class="container" ng-controller="WelcomeController">
+        <div class="container" ng-controller="CurrencyController">
             <div class="col-md-offset-2">
                 <div>
-                    <h1>{{heading + message}}</h1>
-                    <input ng-model="name" type="text" placeholder="Enter your name here">
+                    <h1>{{heading}}{{message | currency : "€"}}</h1>
+                    <input ng-model="amt" type="number" placeholder="Enter Amount"/>
                 </div>
-                <button ng-click="updateMessage()">Update</button>
-                <button ng-click="goodbyeMessage()">Goodbye</button>
+                <button ng-click="convert('EURUSD')">USD-EUR</button>
+                <button ng-click="convert('USDEUR')">EUR-USD</button>
             </div>
         </div>
     </body>
