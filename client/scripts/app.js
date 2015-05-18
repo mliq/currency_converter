@@ -10,10 +10,11 @@ myApp.controller('CurrencyController', ['$scope', '$http',
                 from = "EUR";
                 to = "USD";
             }
-            $http.get('http://jsonrates.com/get/?from=' + from + '&to=' + to + '&apiKey=jr-5be588f08ecd7855e0c8266a4aeb7d36').
+
+            $http.get('/currency').
                 success(function (data) {
-                    console.log(data);
-                    $scope.message = $scope.amt * data.rate;
+                    console.log(data.rate);
+                    //$scope.message = $scope.amt * data.rate;
                 });
         };
 
