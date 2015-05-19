@@ -17,13 +17,21 @@ router.get('/get', function (req, res, next) {
 
 });
 
-/* POST currency. */
+/* POST presets. */
 router.post('/save', function(req, res, next) {
     console.log(req.body);
     currencyPairs.create(req.body, function (err, assignment) {
         if (err) return next(err);
         res.redirect('/');
     })
+});
+
+/* GET presets. */
+router.get('/load', function (req, res, next) {
+    currencyPairs.find(function (err, data) {
+        if (err) return next(err);
+        res.json(data);
+    });
 });
 
 module.exports = router;

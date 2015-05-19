@@ -6,6 +6,16 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
     function ($scope, $http, $filter) {
         $scope.message = "Enter Amount: ";
 
+        //Load presets
+        $scope.getPreset = function(){
+            $http.get('/currency/load').
+                success(function (data) {
+                    console.log(data);
+                    $scope.presets = data;
+                });
+        };
+        $scope.getPreset();
+
         $scope.savePreset = function(){
             $http.post('/currency/save',{from: from, to: to, rate: lastRate}).
                 success(function (data) {
@@ -23,6 +33,7 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
             } else {
                 from = curr.slice(0, 3);
                 to = curr.slice(3);
+                console.log(from,to);
             }
 
             var symbol = to == "USD" ? symbol = "$" : symbol = to + " ";
@@ -43,5 +54,4 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
         };
 
     }
-])
-;
+]);
