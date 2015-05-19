@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', []);
+var myApp = angular.module('myApp', ['angular.filter']);
 var from = "USD", to = "EUR";
 var lastRate;
 
