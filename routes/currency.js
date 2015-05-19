@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var request = require('request');
+var currencyPairs = require('../models/currencypairs.js');
 
-/* GET home page. */
+/* GET currency. */
 router.get('/get', function (req, res, next) {
     var from = req.query.from;
     var to = req.query.to;
@@ -14,6 +15,15 @@ router.get('/get', function (req, res, next) {
         }
     });
 
+});
+
+/* POST currency. */
+router.post('/save', function(req, res, next) {
+    console.log(req.body);
+    currencyPairs.create(req.body, function (err, assignment) {
+        if (err) return next(err);
+        res.redirect('/');
+    })
 });
 
 module.exports = router;

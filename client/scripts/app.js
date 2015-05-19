@@ -1,9 +1,17 @@
 var myApp = angular.module('myApp', []);
 var from = "USD", to = "EUR";
+var lastRate;
 
 myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
     function ($scope, $http, $filter) {
         $scope.message = "Enter Amount: ";
+
+        $scope.savePreset = function(){
+            $http.post('/currency/save',{from: from, to: to, rate: lastRate}).
+                success(function (data) {
+                    console.log("Saved!");
+                });
+        };
 
         $scope.convert = function (curr) {
             $scope.running=true;
@@ -28,7 +36,7 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
 
             $http.get('/currency/get?from=' + from + '&to=' + to).
                 success(function (data) {
-                    console.log(data.rate);
+                    lastRate = data.rate;
                     $scope.message =$filter('currency')($scope.amt,fromSymbol)+" = "
                         +$filter('currency')($scope.amt * data.rate, symbol);
                 });

@@ -8,6 +8,19 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var currency = require('./routes/currency');
 
+// Mongo setup
+var mongoose = require('mongoose');
+
+var mongoURI = "mongodb://localhost:27017/currencyPairs";
+var MongoDB = mongoose.connect(mongoURI).connection;
+MongoDB.on('error', function (err) {
+    console.log('mongodb connection error', err);
+});
+
+MongoDB.once('open', function () {
+    console.log('mongodb connection open');
+});
+
 var app = express();
 
 // uncomment after placing your favicon in /public
