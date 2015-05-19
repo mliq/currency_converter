@@ -20,6 +20,7 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
             $http.post('/currency/save',{from: from, to: to, rate: lastRate}).
                 success(function (data) {
                     console.log("Saved!");
+                    $scope.getPreset();
                 });
         };
 
