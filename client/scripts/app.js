@@ -26,14 +26,14 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
         $scope.convert = function (curr) {
             $scope.running=true;
             $scope.message="Loading...";
-
+            console.log(curr);
             if (curr == "special") {
                 from = $scope.from.toUpperCase();
                 to = $scope.to.toUpperCase();
             } else {
                 from = curr.slice(0, 3);
                 to = curr.slice(3);
-                console.log(from,to);
+                //console.log(from,to);
             }
 
             var symbol = to == "USD" ? symbol = "$" : symbol = to + " ";

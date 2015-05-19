@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-6 list-group">
                         <h3>
-                            <button ng-repeat="preset in presets" ng-click="convert('{{preset.from+preset.to}}')">{{preset.from}}-{{preset.to}}</button>
+                            <button ng-repeat="preset in presets" ng-click="convert(preset.from+preset.to)">{{preset.from}}-{{preset.to}}</button>
                             <button ng-click="convert('USDEUR')">USD-EUR</button>
                             <button ng-click="convert('EURUSD')">EUR-USD</button>
                         </h3>
