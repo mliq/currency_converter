@@ -4,9 +4,10 @@ var from = "USD", to = "EUR";
 myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
     function ($scope, $http, $filter) {
         $scope.message = "Enter Amount: ";
-        var symbol;
 
         $scope.convert = function (curr) {
+            $scope.running=true;
+            $scope.message="Loading...";
 
             if (curr == "special") {
                 from = $scope.from.toUpperCase();
