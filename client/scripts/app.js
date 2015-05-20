@@ -2,8 +2,32 @@ var myApp = angular.module('myApp', ['angular.filter']);
 var from = "USD", to = "EUR";
 var lastRate;
 
-myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
-    function ($scope, $http, $filter) {
+
+myApp.service('MarkerService', ['$http', function ($http) {
+    this.add = function(){
+        return $http.get('https://restcountries.eu/rest/v1/currency/eur').
+            success(function (data) {
+                latlng = data[0].latlng;
+                var newFeature = {
+                    "type": "Feature",
+                    "properties": {
+                        title: from + to + " = " + lastRate,
+                        'marker-symbol': 'a'
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": latlng
+                    }
+                };
+                geojson.features.push(newFeature);
+                markerLayer();
+                console.log(geojson);
+            });
+    }
+}]);
+
+myApp.controller('CurrencyController', ['$scope', '$http', '$filter', 'MarkerService',
+    function ($scope, $http, $filter, MarkerService) {
         $scope.message = "Enter Amount: ";
 
         //Load presets
@@ -51,6 +75,7 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
                     lastRate = data.rate;
                     $scope.message = $filter('currency')($scope.amt, fromSymbol) + " = "
                         + $filter('currency')($scope.amt * data.rate, symbol);
+                    MarkerService.add();
                 });
         };
     }
@@ -58,3 +83,4 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
 //angular.element(document).ready(function () {
 //    angular.bootstrap(document, ['myApp']);
 //});
+

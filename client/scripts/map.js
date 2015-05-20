@@ -48,31 +48,39 @@ var geojson = {
     ]
 };
 
-myApp.controller('MapController', ['$scope', '$http', function ($scope, $http) {
-    $scope.addMarker = function (curr) {
 
-        $http.get('https://restcountries.eu/rest/v1/currency/eur').
-            success(function (data) {
-                latlng = data[0].latlng;
-                var newFeature = {
-                    "type": "Feature",
-                    "properties": {
-                        title: "NewTitle",
-                        'marker-symbol': 'a'
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": latlng
-                    }
-                };
-                geojson.features.push(newFeature);
-                markerLayer();
-                console.log(geojson);
-            });
-    };
-    $scope.addMarker();
-}]);
-
+//
+//var markerModule = angular.module('markerModule', []);
+//myModule.factory('markerSvc', function() {
+//    var shinyNewServiceInstance;
+//    // factory function body that constructs shinyNewServiceInstance
+//    return shinyNewServiceInstance;
+//});
+//
+//myApp.controller('MapController', ['$scope', '$http', function ($scope, $http) {
+//    $scope.addMarker = function () {
+//
+//        $http.get('https://restcountries.eu/rest/v1/currency/eur').
+//            success(function (data) {
+//                latlng = data[0].latlng;
+//                var newFeature = {
+//                    "type": "Feature",
+//                    "properties": {
+//                        title: from + to + " = " + lastRate,
+//                        'marker-symbol': 'a'
+//                    },
+//                    "geometry": {
+//                        "type": "Point",
+//                        "coordinates": latlng
+//                    }
+//                };
+//                geojson.features.push(newFeature);
+//                markerLayer();
+//                console.log(geojson);
+//            });
+//    };
+//    $scope.addMarker();
+//}]);
 
 function setupMap() {
     // Initialize Map
