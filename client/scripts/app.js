@@ -3,28 +3,6 @@ var from = "USD", to = "EUR";
 var lastRate;
 
 
-myApp.service('MarkerService', ['$http', function ($http) {
-    this.add = function(){
-        return $http.get('https://restcountries.eu/rest/v1/currency/eur').
-            success(function (data) {
-                latlng = data[0].latlng;
-                var newFeature = {
-                    "type": "Feature",
-                    "properties": {
-                        title: from + to + " = " + lastRate,
-                        'marker-symbol': 'a'
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": latlng
-                    }
-                };
-                geojson.features.push(newFeature);
-                markerLayer();
-                console.log(geojson);
-            });
-    }
-}]);
 
 myApp.controller('CurrencyController', ['$scope', '$http', '$filter', 'MarkerService',
     function ($scope, $http, $filter, MarkerService) {

@@ -3,84 +3,81 @@ window.onload = function () {
     markerLayer();
 };
 var latlng;
+
 var geojson = {
     type: 'FeatureCollection',
     features: [{
-        type: 'Feature',
-        properties: {
-            title: 'X Canadian Dollars = 1 US Dollar',
-            'marker-color': '#f86767',
-            'marker-size': 'large',
-            'marker-symbol': 'c'
-        },
-        geometry: {
-            type: 'Point',
-            coordinates: [-77.03201, 38.90065]
-        }
-    },
-        {
-            "type": "Feature",
-            "properties": {
-                title: "Chile",
-                'marker-symbol': 'c'
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -72.0703125,
-                    -36.597889133070204
-                ]
-            }
-        },
-        {
-            type: 'Feature',
-            properties: {
-                title: 'Euro',
-                'marker-color': '#a3e46b',
-                'marker-size': 'large',
-                'marker-symbol': 'e'
-            },
-            geometry: {
-                type: 'Point',
-                coordinates: [9.49, 49.152969]
-            }
+    //    type: 'Feature',
+    //    properties: {
+    //        title: 'X Canadian Dollars = 1 US Dollar',
+    //        'marker-color': '#f86767',
+    //        'marker-size': 'large',
+    //        'marker-symbol': 'c'
+    //    },
+    //    geometry: {
+    //        type: 'Point',
+    //        coordinates: [-77.03201, 38.90065]
+    //    }
+    //},
+    //    {
+    //        "type": "Feature",
+    //        "properties": {
+    //            title: "Chile",
+    //            'marker-symbol': 'c'
+    //        },
+    //        "geometry": {
+    //            "type": "Point",
+    //            "coordinates": [
+    //                -72.0703125,
+    //                -36.597889133070204
+    //            ]
+    //        }
+    //    },
+    //    {
+    //        type: 'Feature',
+    //        properties: {
+    //            title: 'Euro',
+    //            'marker-color': '#a3e46b',
+    //            'marker-size': 'large',
+    //            'marker-symbol': 'e'
+    //        },
+    //        geometry: {
+    //            type: 'Point',
+    //            coordinates: [9.49, 49.152969]
+    //        }
         }
     ]
 };
 
+myApp.service('MarkerService', ['$http', function ($http) {
+    this.add = function(){
+        var curr;
+        if(from !="USD"){
+                curr=from;
+        } else {
+            curr=to;
+        }
+        return $http.get('https://restcountries.eu/rest/v1/currency/'+curr).
+            success(function (data) {
+                latlng = data[0].latlng.reverse();
 
-//
-//var markerModule = angular.module('markerModule', []);
-//myModule.factory('markerSvc', function() {
-//    var shinyNewServiceInstance;
-//    // factory function body that constructs shinyNewServiceInstance
-//    return shinyNewServiceInstance;
-//});
-//
-//myApp.controller('MapController', ['$scope', '$http', function ($scope, $http) {
-//    $scope.addMarker = function () {
-//
-//        $http.get('https://restcountries.eu/rest/v1/currency/eur').
-//            success(function (data) {
-//                latlng = data[0].latlng;
-//                var newFeature = {
-//                    "type": "Feature",
-//                    "properties": {
-//                        title: from + to + " = " + lastRate,
-//                        'marker-symbol': 'a'
-//                    },
-//                    "geometry": {
-//                        "type": "Point",
-//                        "coordinates": latlng
-//                    }
-//                };
-//                geojson.features.push(newFeature);
-//                markerLayer();
-//                console.log(geojson);
-//            });
-//    };
-//    $scope.addMarker();
-//}]);
+                var newFeature = {
+                    "type": "Feature",
+                    "properties": {
+                        title: from + to + " = " + lastRate,
+                        'marker-symbol': curr.slice(0,1).toLowerCase()
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": latlng
+                    }
+                };
+                geojson.features.push(newFeature);
+                markerLayer();
+                console.log(geojson);
+            });
+    }
+}]);
 
 function setupMap() {
     // Initialize Map
