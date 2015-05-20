@@ -49,14 +49,21 @@ var geojson = {
     ]
 };
 
+var colors = ['#f86767', '#a3e46b', '#0064cd', '#2ECD2F', '#6BB0CD'];
+var i = 0;
 myApp.service('MarkerService', ['$http', function ($http) {
     this.add = function(){
-        var curr;
+        var curr, color;
+
         if(from !="USD"){
                 curr=from;
         } else {
             curr=to;
         }
+        color=colors[i];
+        i++;
+        if(i>colors.length-1){i=0}
+
         return $http.get('https://restcountries.eu/rest/v1/currency/'+curr).
             success(function (data) {
                 latlng = data[0].latlng.reverse();
@@ -65,7 +72,8 @@ myApp.service('MarkerService', ['$http', function ($http) {
                     "type": "Feature",
                     "properties": {
                         title: from + to + " = " + lastRate,
-                        'marker-symbol': curr.slice(0,1).toLowerCase()
+                        'marker-symbol': curr.slice(0,1).toLowerCase(),
+                        'marker-color': color
                     },
                     "geometry": {
                         "type": "Point",
