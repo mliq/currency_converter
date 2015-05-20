@@ -1,8 +1,8 @@
 window.onload = function () {
     setupMap();
+    markerLayer();
 };
 var latlng;
-
 var geojson = {
     type: 'FeatureCollection',
     features: [{
@@ -54,8 +54,19 @@ myApp.controller('MapController', ['$scope', '$http', function ($scope, $http) {
         $http.get('https://restcountries.eu/rest/v1/currency/eur').
             success(function (data) {
                 latlng = data[0].latlng;
-                console.log(latlng);
-                geojson.features.push(latlng);
+                var newFeature = {
+                    "type": "Feature",
+                    "properties": {
+                        title: "NewTitle",
+                        'marker-symbol': 'a'
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": latlng
+                    }
+                };
+                geojson.features.push(newFeature);
+                markerLayer();
                 console.log(geojson);
             });
     };
@@ -64,10 +75,14 @@ myApp.controller('MapController', ['$scope', '$http', function ($scope, $http) {
 
 
 function setupMap() {
+    // Initialize Map
     L.mapbox.accessToken = 'pk.eyJ1IjoibWxpcSIsImEiOiJUWnMzTG13In0.o1lqB-cy9XNlBrbJ3D_ATg';
     window.map = L.mapbox.map('map', 'mliq.c23716af', {maxZoom: 2, minZoom: 2, zoomControl: false});
     map.setView([32.25, 18.984], 2);
+}
 
+function markerLayer() {
+    // Add geoJSON layer
     var myLayer = L.mapbox.featureLayer().addTo(map);
 
     myLayer.setGeoJSON(geojson);
