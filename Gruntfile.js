@@ -7,9 +7,14 @@ module.exports = function(grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'client//scripts/app.js',
-                dest: 'public/javascripts/app.min.js'
-            }
+                files:[{
+                    expand: true,
+                    cwd: 'client/scripts',
+                    src: ['*.js', '**/*.js'],
+                    dest: 'public/javascripts/',
+                    ext: '.min.js',
+                }],
+            },
         },
         copy: {
             angular: {
