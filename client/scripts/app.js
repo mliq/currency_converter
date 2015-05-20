@@ -53,6 +53,8 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter',
                         + $filter('currency')($scope.amt * data.rate, symbol);
                 });
         };
-
     }
 ]);
+//angular.element(document).ready(function () {
+//    angular.bootstrap(document, ['myApp']);
+//});
