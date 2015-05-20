@@ -1,6 +1,19 @@
 window.onload = function () {
     setupMap();
 };
+
+var mapApp = angular.module('mapApp', []);
+mapApp.controller('MapController', ['$scope', '$http', function ($scope, $http) {
+    $scope.addMarker = function (curr) {
+        $http.get('https://restcountries.eu/rest/v1/currency/eur').
+            success(function (data) {
+                console.log(data);
+            });
+    };
+    $scope.addMarker();
+}]);
+
+
 function setupMap() {
     L.mapbox.accessToken = 'pk.eyJ1IjoibWxpcSIsImEiOiJUWnMzTG13In0.o1lqB-cy9XNlBrbJ3D_ATg';
     window.map = L.mapbox.map('map', 'mliq.c23716af', {maxZoom: 2, minZoom: 2, zoomControl: false});
@@ -24,6 +37,20 @@ function setupMap() {
             }
         },
             {
+                "type": "Feature",
+                "properties": {
+                    title: "Chile",
+                    'marker-symbol': 'c'
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        -72.0703125,
+                        -36.597889133070204
+                    ]
+                }
+            },
+            {
                 type: 'Feature',
                 properties: {
                     title: 'Euro',
@@ -33,9 +60,10 @@ function setupMap() {
                 },
                 geometry: {
                     type: 'Point',
-                    coordinates: [9.49,49.152969]
+                    coordinates: [9.49, 49.152969]
                 }
-            }]
+            }
+        ]
     };
 
     myLayer.setGeoJSON(geojson);
