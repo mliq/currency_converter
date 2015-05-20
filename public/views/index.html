@@ -9,10 +9,13 @@
         <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet'/>
         <script type="text/javascript">
             window.onload = function () {
-                L.mapbox.accessToken = 'pk.eyJ1IjoibWxpcSIsImEiOiJUWnMzTG13In0.o1lqB-cy9XNlBrbJ3D_ATg';
-                window.map = L.mapbox.map('map', 'mliq.c23716af', {zoom: 0, zoomControl: false});
-                map.setView([32.25, 18.984], 2);
+                setupMap();
             };
+            function setupMap() {
+                L.mapbox.accessToken = 'pk.eyJ1IjoibWxpcSIsImEiOiJUWnMzTG13In0.o1lqB-cy9XNlBrbJ3D_ATg';
+                window.map = L.mapbox.map('map', 'mliq.c23716af', {maxZoom: 2, minZoom:2,zoomControl: false});
+                map.setView([32.25, 18.984], 2);
+            }
         </script>
     </head>
     <body>
