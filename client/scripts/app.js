@@ -2,8 +2,6 @@ var myApp = angular.module('myApp', ['angular.filter']);
 var from = "USD", to = "EUR";
 var lastRate;
 
-
-
 myApp.controller('CurrencyController', ['$scope', '$http', '$filter', 'MarkerService',
     function ($scope, $http, $filter, MarkerService) {
         $scope.message = "Enter Amount: ";
@@ -24,6 +22,12 @@ myApp.controller('CurrencyController', ['$scope', '$http', '$filter', 'MarkerSer
                     console.log("Saved!");
                     $scope.getPreset();
                 });
+        };
+
+        $scope.reverseVals = function () {
+            var temp = $scope.from;
+            $scope.from = $scope.to;
+            $scope.to = temp;
         };
 
         $scope.convert = function (curr) {
