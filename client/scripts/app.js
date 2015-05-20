@@ -1,11 +1,3 @@
-$(document).ready(function () {
-    // Provide your access token
-    L.mapbox.accessToken = 'pk.eyJ1IjoibWxpcSIsImEiOiJUWnMzTG13In0.o1lqB-cy9XNlBrbJ3D_ATg';
-// Create a map in the div #map
-    var map = L.mapbox.map('map', 'mliq.c23716af');
-
-});
-
 var myApp = angular.module('myApp', ['angular.filter']);
 var from = "USD", to = "EUR";
 var lastRate;
